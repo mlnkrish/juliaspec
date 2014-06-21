@@ -1,4 +1,4 @@
-export describe,it,test,T
+export describe, it, test, T, afterEach, beforeEach
 
 currentFeature = Feature("Nothing",list(Test))
 suite = Suite(list(Feature))
@@ -20,6 +20,7 @@ end
 function it(test::Function, name::String)
   pass = true;
   try
+    currentFeature.beforeEach()
     test()
     write(STDOUT, green)
     print("+ ")
@@ -32,8 +33,22 @@ function it(test::Function, name::String)
     Base.showerror(STDOUT, e, catch_backtrace())
     println()
   end
+  currentFeature.afterEach()
   addTest(currentFeature, Test(name,pass,false))  
 end
+
+function beforeEach(setup::Function, name::String)
+  currentFeature.beforeEach = setup
+end
+
+beforeEach(setup::Function) = beforeEach(setup,"")
+
+function afterEach(teardown::Function, name::String)
+  currentFeature.afterEach = teardown 
+end
+
+afterEach(setup::Function) = afterEach(setup,"")
+
 
 function test(actual::Any, check::Function)
   check(actual)
