@@ -1,4 +1,4 @@
-export describe,it
+export describe,it,test,T
 
 currentFeature = Feature("Nothing",list(Test))
 suite = Suite(list(Feature))
@@ -10,6 +10,7 @@ function describe(specs::Function, name::String)
   currentFeature = Feature(name,list(Test))
   addFeature(suite,currentFeature)
   write(reset)
+  println()
   println(name)
   println(repeat("-",Base.length(name)))
   specs()
@@ -21,10 +22,21 @@ function it(test::Function, name::String)
   try
     test()
     write(STDOUT, green)
+    print("+ ")
+    println(name)
   catch e
     pass = false
     write(STDOUT, red)
+    print("x ")
+    println(name)
+    Base.showerror(STDOUT, e, catch_backtrace())
+    println()
   end
-  println(name)
   addTest(currentFeature, Test(name,pass,false))  
 end
+
+function test(actual::Any, check::Function)
+  check(actual)
+end
+
+T = test

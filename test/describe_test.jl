@@ -1,12 +1,12 @@
 using juliaspec
 
-describe("Binary search") do
+describe("Simple testing") do
 
-  it("should search") do
+  it("a passing test") do
 
   end
 
-  it("should search fail") do
+  it("a failing test") do
     throw(DomainError())
   end
   
