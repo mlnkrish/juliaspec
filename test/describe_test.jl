@@ -1,17 +1,5 @@
 using juliaspec
 
-describe("Simple testing") do
-
-  it("a passing test") do
-
-  end
-
-  it("a failing test") do
-    throw(DomainError())
-  end
-  
-end
-
 describe("beforeTest and afterTest hooks") do
   x = 1
   y = 100

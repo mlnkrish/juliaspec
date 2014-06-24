@@ -12,3 +12,4 @@ end
 
 include("describe_test.jl")
 include("equality_test.jl")
+include("boolean_test.jl")
